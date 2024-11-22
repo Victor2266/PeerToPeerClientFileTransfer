@@ -632,9 +632,13 @@ static int download_content(const char* filename) {
         FD_ZERO(&readfds);
         FD_SET(peer_state.udp_sock, &readfds);
         
-        tv.tv_sec = 2;
+        tv.tv_sec = (rand() % 6) + 2;
         tv.tv_usec = 0;
 
+        // Wait for a response from the server for up to 2 seconds. If we
+        // receive a response, select() will return a positive value and we
+        // can process the response. If we don't receive a response within 2
+        // seconds, select() will return 0 and we can retry the request.
         int select_result = select(peer_state.udp_sock + 1, &readfds, NULL, NULL, &tv);
         
         if (select_result > 0) {
