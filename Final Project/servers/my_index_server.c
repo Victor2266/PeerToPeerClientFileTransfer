@@ -28,14 +28,14 @@
 
 /* PDU Structures with packed attribute to ensure consistent network transmission */
 struct __attribute__((__packed__)) pdu_R {
-    char type;
-    uint8_t pNameLength;
-    char pName[MAX_CONTENT_SIZE];
-    uint8_t cNameLength;
-    char cName[MAX_CONTENT_SIZE];
-    uint32_t address;
-    uint16_t port;
-};
+    char type;           // 1 byte
+    uint8_t pNameLength; // 1 byte
+    char pName[MAX_CONTENT_SIZE];     // 100 bytes
+    uint8_t cNameLength; // 1 byte
+    char cName[MAX_CONTENT_SIZE];     // 100 bytes
+    uint32_t address;    // 4 bytes
+    uint16_t port;       // 2 bytes
+}; // Total size: 209 bytes (exact sum of member sizes)
 
 struct __attribute__((__packed__)) pdu_S_T {
     char type;
