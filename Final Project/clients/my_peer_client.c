@@ -529,8 +529,8 @@ static int start_tcp_server(const char* filename) {
     // Try to bind to next available port
     int bound = 0;
     uint16_t final_port = 0;
-    
-    for (int attempts = 0; attempts < 10; attempts++) {
+    int attempts;
+    for (attempts = 0; attempts < 10; attempts++) {
         addr.sin_port = htons(peer_state.next_tcp_port++);
         if (bind(server_sock, (struct sockaddr*)&addr, sizeof(addr)) == 0) {
             bound = 1;
@@ -760,7 +760,7 @@ static int list_content(void) {
             retry_count++;
             continue;
         }
-
+	sleep(rand() % 4);
         // Buffer for receiving the complete PDU_O structure
         struct {
             char type;
@@ -822,8 +822,8 @@ static int list_content(void) {
             int offset = 0;
             printf("\n%-40s %-20s\n", "Content", "Hosted by");
             printf("%-40s %-20s\n", "-------", "---------");
-            
-            for (int i = 0; i < response.totalEntries; i++) {
+            int i;
+            for (i = 0; i < response.totalEntries; i++) {
                 // Print content name
                 printf("%-40.*s ", response.lengths[i].cLength, 
                        &response.data[offset]);
