@@ -632,7 +632,7 @@ static int download_content(const char* filename) {
         FD_ZERO(&readfds);
         FD_SET(peer_state.udp_sock, &readfds);
         
-        tv.tv_sec = (rand() % 6) + 2;
+        tv.tv_sec = (rand() % 6) + 2; //random delay
         tv.tv_usec = 0;
 
         // Wait for a response from the server for up to 2 seconds. If we
